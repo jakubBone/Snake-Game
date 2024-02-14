@@ -13,5 +13,6 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.useVsync(true);
 		new Lwjgl3Application(new SnakeGame(), config);
+
 	}
 }
