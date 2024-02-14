@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class SnakeGame extends ApplicationAdapter {
 
+	private Music snakeWelcome;
 	private Music snakeMove;
 	private Sound snakeGulp;
 	SpriteBatch batch;
@@ -17,13 +18,14 @@ public class SnakeGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		snakeWelcome = Gdx.audio.newMusic(Gdx.files.internal("snakeWelcome.mp3"));
 		snakeMove = Gdx.audio.newMusic(Gdx.files.internal("snakeMove.mp3"));
 		snakeGulp = Gdx.audio.newSound(Gdx.files.internal("snakeGulp.wav"));
 
-		snakeMove.setLooping(true);
-		snakeMove.play();
+		snakeWelcome.setLooping(true);
+		snakeWelcome.play();
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("snake.png");
 	}
 
 	@Override
