@@ -35,7 +35,7 @@ public class SnakeGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		welcomeImage = new Texture("welcomeImage.png");
+		welcomeImage = new Texture("apple.png");
 		appleImage = new Texture("apple.png");
 
 		camera = new OrthographicCamera();
@@ -94,8 +94,11 @@ public class SnakeGame extends ApplicationAdapter {
 		if(rectange.y < 0) rectange.y = 0;
 		if(rectange.y > 800 - 400) rectange.y = 800 - 400;
 
-		// Falling the apples
+		// check if we need to create a new apple
 		if(TimeUtils.nanoTime() - lastAppleTime > 1000000000) spawnLastApple();
+		// move the apples, remove any that are beneath the bottom edge of
+		// the screen or that hit the down placed apple. In the latter case we play back
+		// a sound effect as well.
 		for (Iterator<Rectangle> iter = apples.iterator(); iter.hasNext(); ) {
 			Rectangle apple = iter.next();
 			apple.y -= 64 * Gdx.graphics.getDeltaTime();
