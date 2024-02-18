@@ -22,16 +22,12 @@ public class WelcomeScreen extends ScreenAdapter implements ApplicationListener 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 800);
 
+        screen = new Rectangle();
         batch = new SpriteBatch();
 
         snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("welcomeMusic.mp3"));
         snakeWelcomeMusic.setLooping(true);
         snakeWelcomeMusic.play();
-
-        // WelcomeImage
-        screen = new Rectangle();
-        screen.x = 0;
-        screen.y = 0;
     }
 
     public void render() {
@@ -47,7 +43,7 @@ public class WelcomeScreen extends ScreenAdapter implements ApplicationListener 
 
     public void dispose() {
         welcomeImage.dispose();
-        batch.dispose();
         snakeWelcomeMusic.dispose();
+        batch.dispose();
     }
 }
