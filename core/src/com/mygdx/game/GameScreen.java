@@ -20,7 +20,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private Snake snake;
     private int direction;
 
-
         public void create() {
             snake = new Snake(new Texture("snakeHead.png"),new Texture("snakeBody.png"));
             apple = new Apple(new Texture("apple.png"));
@@ -46,11 +45,10 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
 
             snake.move(direction);
             handleInput();
-            snake.checkAppleCollision(apple.getPosition(), apple);
 
             batch.begin();
-            snake.drawHead(batch);
-            snake.drawBody(batch, direction);
+            snake.drawBody(batch);
+            snake.drawHead(batch, direction);
             apple.drawApple(batch);
 
             batch.end();
@@ -65,7 +63,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
                 direction = Input.Keys.LEFT;
             else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) )
                 direction = Input.Keys.RIGHT;
-
         }
 
         public void dispose() {
