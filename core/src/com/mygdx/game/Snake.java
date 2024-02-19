@@ -27,7 +27,7 @@ public class Snake {
     public void drawHead(SpriteBatch batch) {
             batch.draw(headTexture, bodyParts.get(0).x + 0, bodyParts.get(0).y -64);
     }
-    public void move(int direction, boolean grow) {
+    public void move(int direction) {
         Vector2 headPos = bodyParts.get(0);
 
         switch(direction){

@@ -43,9 +43,11 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             ScreenUtils.clear(0, 0, 0, 0);
             camera.update();
             batch.setProjectionMatrix(camera.combined);
+
+            snake.move(direction);
             handleInput();
-            snake.move(direction, false);
             snake.checkAppleCollision(apple.getPosition(), apple);
+
             batch.begin();
             snake.drawHead(batch);
             snake.drawBody(batch, direction);
