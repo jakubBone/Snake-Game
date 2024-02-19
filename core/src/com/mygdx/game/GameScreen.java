@@ -19,7 +19,7 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private Apple apple;
     private Snake snake;
     private int direction;
-    private float speed;
+
 
         public void create() {
             snake = new Snake(new Texture("snakeHead.png"),new Texture("snakeBody.png"));
@@ -36,7 +36,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             batch = new SpriteBatch();
 
             direction = Input.Keys.RIGHT;
-            speed = 0.1f;
 
         }
 
@@ -46,21 +45,23 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             batch.setProjectionMatrix(camera.combined);
             handleInput();
             snake.move(direction, false);
+            snake.checkAppleCollision(apple.getPosition(), apple);
             batch.begin();
-            snake.drawSnake(batch);
+            snake.drawHead(batch);
+            snake.drawBody(batch, direction);
             apple.drawApple(batch);
 
             batch.end();
         }
 
         public void handleInput(){
-            if(Gdx.input.isKeyPressed(Input.Keys.UP) && direction != Input.Keys.DOWN)
+            if(Gdx.input.isKeyPressed(Input.Keys.UP) )
                 direction = Input.Keys.UP;
-            else if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && direction != Input.Keys.UP)
+            else if(Gdx.input.isKeyPressed(Input.Keys.DOWN) )
                 direction = Input.Keys.DOWN;
-            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && direction != Input.Keys.RIGHT)
+            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) )
                 direction = Input.Keys.LEFT;
-            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && direction != Input.Keys.LEFT)
+            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) )
                 direction = Input.Keys.RIGHT;
 
         }
