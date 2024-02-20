@@ -58,16 +58,16 @@ public class Snake {
 
         switch(direction){
             case Input.Keys.UP:
-                bodyParts.get(0).y += 5;
+                bodyParts.get(0).y += 64;
                 break;
             case Input.Keys.DOWN:
-                bodyParts.get(0).y -= 5;
+                bodyParts.get(0).y -= 64;
                 break;
             case Input.Keys.LEFT:
-                bodyParts.get(0).x -= 5;
+                bodyParts.get(0).x -= 64;
                 break;
             case Input.Keys.RIGHT:
-                bodyParts.get(0).x += 5;
+                bodyParts.get(0).x += 64;
                 break;
         }
 
@@ -76,6 +76,7 @@ public class Snake {
             bodyParts.set(i, new Vector2(previousPosition));
             previousPosition.set(currentPosition);
         }
+
     }
     public void grow() {
         Vector2 tail = bodyParts.get(bodyParts.size() - 1);

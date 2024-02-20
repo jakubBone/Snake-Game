@@ -39,7 +39,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             batch = new SpriteBatch();
 
             direction = Input.Keys.RIGHT;
-
         }
 
         public void render() {
@@ -50,13 +49,14 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             snake.move(direction);
             handleInput();
 
-            batch.begin();
-            snake.drawBody(batch);
-            /*try {
-                sleep(50);
+            try {
+                sleep(150);
             } catch(Exception e){
                 e.getStackTrace();
-            }*/
+            }
+
+            batch.begin();
+            snake.drawBody(batch);
 
             snake.drawHead(batch, direction);
             snake.checkAppleCollision(apple);
