@@ -11,6 +11,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.security.Key;
+
+import static java.lang.Thread.sleep;
+
 public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private OrthographicCamera camera;
     private SpriteBatch batch;
@@ -48,20 +52,27 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
 
             batch.begin();
             snake.drawBody(batch);
+            /*try {
+                sleep(50);
+            } catch(Exception e){
+                e.getStackTrace();
+            }*/
+
             snake.drawHead(batch, direction);
+            snake.checkAppleCollision(apple);
             apple.drawApple(batch);
 
             batch.end();
         }
 
         public void handleInput(){
-            if(Gdx.input.isKeyPressed(Input.Keys.UP) )
+            if(Gdx.input.isKeyPressed(Input.Keys.UP) && direction != Input.Keys.DOWN)
                 direction = Input.Keys.UP;
-            else if(Gdx.input.isKeyPressed(Input.Keys.DOWN) )
+            else if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && direction != Input.Keys.UP)
                 direction = Input.Keys.DOWN;
-            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) )
+            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && direction != Input.Keys.RIGHT)
                 direction = Input.Keys.LEFT;
-            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) )
+            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && direction != Input.Keys.LEFT)
                 direction = Input.Keys.RIGHT;
         }
 

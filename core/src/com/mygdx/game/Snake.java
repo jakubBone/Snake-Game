@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
 import java.util.ArrayList;
 
 public class Snake {
@@ -13,7 +12,6 @@ public class Snake {
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
     private int direction = Input.Keys.RIGHT;
-
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
@@ -49,44 +47,53 @@ public class Snake {
     }
 
     public void drawBody(SpriteBatch batch) {
-        for (Vector2 part : bodyParts) {
-            batch.draw(bodyTexture, part.x, part.y);
+        for (Vector2 body : bodyParts) {
+            batch.draw(bodyTexture, body.x, body.y);
         }
     }
 
+
     public void move(int direction) {
-        Vector2 headPos = bodyParts.get(0);
+        Vector2 previousPosition = new Vector2(bodyParts.get(0));
 
         switch(direction){
             case Input.Keys.UP:
-                headPos.y += 5;
+                bodyParts.get(0).y += 5;
                 break;
             case Input.Keys.DOWN:
-                headPos.y -= 5;
+                bodyParts.get(0).y -= 5;
                 break;
             case Input.Keys.LEFT:
-                headPos.x -= 5;
+                bodyParts.get(0).x -= 5;
                 break;
             case Input.Keys.RIGHT:
-                headPos.x += 5;
+                bodyParts.get(0).x += 5;
                 break;
         }
 
-        for (int i = bodyParts.size() - 1; i > 0; i--) {
-            bodyParts.set(i, new Vector2(bodyParts.get(i - 1)));
+        for (int i = 1; i < bodyParts.size(); i++) {
+            Vector2 currentPosition = new Vector2(bodyParts.get(i));
+            bodyParts.set(i, new Vector2(previousPosition));
+            previousPosition.set(currentPosition);
         }
-
-        bodyParts.set(0, headPos);
-
     }
     public void grow() {
-
+        Vector2 tail = bodyParts.get(bodyParts.size() - 1);
+        bodyParts.add(new Vector2(tail.x, tail.y));
     }
-    public void checkAppleCollision(){
+    public void checkAppleCollision(Apple apple) {
+        float appleX = apple.getPosition().x;
+        float appleY = apple.getPosition().y;
+        float headX = bodyParts.get(0).x;
+        float headY = bodyParts.get(0).y;
 
-    }
-    public Vector2 getHeadPosition(){
-        return bodyParts.get(0);
+        float distance = Vector2.dst(headX, headY, appleX, appleY);
+        float collisionRadius = 50;
+
+        if (distance < collisionRadius) {
+            grow();
+            apple.respawn();
+        }
     }
     public void dispose(){
         headTexture.dispose();
