@@ -3,18 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public class GameScreen extends ScreenAdapter implements ApplicationListener {
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
+public class GameScreen extends Screen implements ApplicationListener {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
     private Apple apple;
@@ -22,8 +17,8 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private int direction;
     private long lastMoveTime;
 
-
     public void create() {
+            setScreenDetails();
             snake = new Snake(new Texture("snakeHead.png"),new Texture("snakeBody.png"));
             apple = new Apple(new Texture("apple.png"));
 
@@ -31,11 +26,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
             snakeMoveSound.play();
             snakeMoveSound.setLooping(true);
-
-            camera = new OrthographicCamera();
-            camera.setToOrtho(false, 1200, 1200);
-
-            batch = new SpriteBatch();
 
             direction = Input.Keys.RIGHT;
             lastMoveTime = TimeUtils.nanoTime();
@@ -57,7 +47,6 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             snake.checkAppleCollision(apple);
             apple.drawApple(batch);
             batch.end();
-
 
         }
 

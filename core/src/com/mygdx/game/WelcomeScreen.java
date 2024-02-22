@@ -2,28 +2,16 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
-public class WelcomeScreen extends ScreenAdapter implements ApplicationListener {
-    private Texture welcomeImage;
+public class WelcomeScreen extends Screen implements ApplicationListener {
     private Music snakeWelcomeMusic;
-    private OrthographicCamera camera;
-    private Rectangle screen;
-    private SpriteBatch batch;
-
     public void create() {
-        welcomeImage = new Texture("welcomeImage.png");
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        setScreenDetails();
 
-        screen = new Rectangle();
-        batch = new SpriteBatch();
+        image = new Texture("welcomeImage.png");
 
         snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("welcomeMusic.mp3"));
         snakeWelcomeMusic.setLooping(true);
@@ -36,13 +24,14 @@ public class WelcomeScreen extends ScreenAdapter implements ApplicationListener 
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+
         batch.begin();
-        batch.draw(welcomeImage, screen.x, screen.y);
+        batch.draw(image, screen.x, screen.y);
         batch.end();
     }
 
     public void dispose() {
-        welcomeImage.dispose();
+        image.dispose();
         snakeWelcomeMusic.dispose();
         batch.dispose();
     }

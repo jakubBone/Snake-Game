@@ -11,17 +11,20 @@ public class Snake {
     public Texture headTexture;
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
+    private Screen screen;
     float headX;
     float headY;
-    private int initDirection = Input.Keys.RIGHT;
+    private final int initDirection = Input.Keys.RIGHT;
     public static long velocity = 500000000;
+
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
         this.bodyTexture = bodyTexture;
 
         bodyParts = new ArrayList<>();
-        bodyParts.add(new Vector2(400, 400)); // Initial position of the snake
+
+        bodyParts.add(new Vector2(384, 384)); // Initial position of the snake
 
     }
     public void drawHead(SpriteBatch batch, int direction) {
@@ -60,7 +63,7 @@ public class Snake {
         // 64px is width and length of snakeBody.png
         switch(direction){
             case Input.Keys.UP:
-                bodyParts.get(0).y +=;
+                bodyParts.get(0).y +=64 ;
                 break;
             case Input.Keys.DOWN:
                 bodyParts.get(0).y -= 64;
