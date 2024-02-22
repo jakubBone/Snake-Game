@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.security.Key;
-
-import static java.lang.Thread.sleep;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private OrthographicCamera camera;
@@ -23,6 +20,7 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private Apple apple;
     private Snake snake;
     private int direction;
+    private long lastMoveTime;
 
         public void create() {
             snake = new Snake(new Texture("snakeHead.png"),new Texture("snakeBody.png"));
@@ -39,41 +37,46 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
             batch = new SpriteBatch();
 
             direction = Input.Keys.RIGHT;
+            lastMoveTime = TimeUtils.nanoTime();
         }
 
         public void render() {
             ScreenUtils.clear(0, 0, 0, 0);
             camera.update();
+
             batch.setProjectionMatrix(camera.combined);
 
-            snake.move(direction);
+            updateSnakeMovement();
             handleInput();
-
-            try {
-                sleep(150);
-            } catch(Exception e){
-                e.getStackTrace();
-            }
-
             batch.begin();
-            snake.drawBody(batch);
 
+            snake.drawBody(batch);
             snake.drawHead(batch, direction);
+
             snake.checkAppleCollision(apple);
             apple.drawApple(batch);
-
             batch.end();
+
+
         }
 
-        public void handleInput(){
-            if(Gdx.input.isKeyPressed(Input.Keys.UP) && direction != Input.Keys.DOWN)
-                direction = Input.Keys.UP;
-            else if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && direction != Input.Keys.UP)
-                direction = Input.Keys.DOWN;
-            else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && direction != Input.Keys.RIGHT)
-                direction = Input.Keys.LEFT;
-            else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && direction != Input.Keys.LEFT)
-                direction = Input.Keys.RIGHT;
+        private void handleInput(){
+                if (Gdx.input.isKeyPressed(Input.Keys.UP) && direction != Input.Keys.DOWN)
+                    direction = Input.Keys.UP;
+                else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && direction != Input.Keys.UP)
+                    direction = Input.Keys.DOWN;
+                else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && direction != Input.Keys.RIGHT)
+                    direction = Input.Keys.LEFT;
+                else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && direction != Input.Keys.LEFT)
+                    direction = Input.Keys.RIGHT;
+        }
+
+        public void updateSnakeMovement() {
+            long currentTime = TimeUtils.nanoTime();
+            if (currentTime - lastMoveTime > Snake.velocity) {
+                snake.move(direction);
+                lastMoveTime = currentTime;
+            }
         }
 
         public void dispose() {

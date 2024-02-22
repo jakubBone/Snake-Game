@@ -12,6 +12,7 @@ public class Snake {
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
     private int direction = Input.Keys.RIGHT;
+    public static long velocity = 500000000;
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
@@ -24,6 +25,7 @@ public class Snake {
         TextureRegion region;
 
         switch (direction) {
+
             case Input.Keys.UP:
                 region = new TextureRegion(headTexture);
                 region.flip(false, true);
@@ -81,6 +83,7 @@ public class Snake {
     public void grow() {
         Vector2 tail = bodyParts.get(bodyParts.size() - 1);
         bodyParts.add(new Vector2(tail.x, tail.y));
+        increaseVelocity();
     }
     public void checkAppleCollision(Apple apple) {
         float appleX = apple.getPosition().x;
@@ -94,6 +97,12 @@ public class Snake {
         if (distance < collisionRadius) {
             grow();
             apple.respawn();
+        }
+    }
+
+    public void increaseVelocity(){
+        if (velocity >= 100000000) {
+            velocity -= 20000000;
         }
     }
     public void dispose(){
