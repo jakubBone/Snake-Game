@@ -14,13 +14,9 @@ public class Apple {
         this.appleTexture = appleTexture;
         screen = new Screen();
         //applePosition = new Vector2(MathUtils.random(0, 800 - appleTexture.getWidth()), MathUtils.random(0, 800 - appleTexture.getHeight()));
-        applePosition = new Vector2(MathUtils.random(0, screen.cols - screen.cellSize), MathUtils.random(0, screen.cols - screen.windowSideSize));
+        applePosition = new Vector2(MathUtils.random(0, screen.cols - screen.cellSize), MathUtils.random(0, screen.cols - screen.screenSize));
 
     }
-    /*public Apple(Texture appleTexture){
-        this.appleTexture = appleTexture;
-        applePosition = new Vector2(MathUtils.random(0, 800 - appleTexture.getWidth()), MathUtils.random(0, 800 - appleTexture.getHeight()));
-    }*/
 
     public void drawApple(SpriteBatch batch){
         batch.draw(appleTexture, applePosition.x, applePosition.y);

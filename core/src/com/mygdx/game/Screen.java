@@ -11,23 +11,23 @@ public class Screen extends ScreenAdapter  {
     protected OrthographicCamera camera;
     protected Rectangle screen;
     protected SpriteBatch batch;
-    protected int windowSideSize;
+    protected int screenSize;
     protected int cellSize;
     protected int cols;
     protected int rows;
 
     public void setScreenDetails(){
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1200, 1200);
+        camera.setToOrtho(false, 800, 800);
 
         screen = new Rectangle();
         batch = new SpriteBatch();
 
-        windowSideSize = 768;
+        screenSize = 768;
         cellSize = 64;
 
-        cols = windowSideSize / cellSize;
-        rows = windowSideSize / cellSize;
+        cols = screenSize / cellSize;
+        rows = screenSize / cellSize;
     }
 
     public int getCellSize() {

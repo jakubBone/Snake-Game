@@ -14,8 +14,8 @@ public class Snake {
     private Screen screen;
     float headX;
     float headY;
-    private final int initDirection = Input.Keys.RIGHT;
     public static long velocity = 500000000;
+
 
 
     public Snake(Texture headTexture, Texture bodyTexture){
