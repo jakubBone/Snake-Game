@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,7 +21,7 @@ public class Snake {
         this.bodyTexture = bodyTexture;
 
         bodyParts = new ArrayList<>();
-        bodyParts.add(new Vector2(0,0)); // Initial position of the snake
+        bodyParts.add(new Vector2(384,384)); // Initial position of the snake
     }
     public void drawHead(SpriteBatch batch, int direction) {
         TextureRegion region;
@@ -84,18 +85,25 @@ public class Snake {
         increaseVelocity();
     }
 
-    public void checkAppleCollision(Apple apple) {
+    public void checkCollision(Apple apple, Sound gulp) {
         Vector2 headPos = bodyParts.get(0);
+
         // Apple collision
         if(headPos.equals(apple.getPos())) {
+            gulp.play();
             grow();
             apple.respawn();
         }
         // Snake body collision
         for(int i = 2; i < bodyParts.size(); i++){
                 if(headPos.equals(bodyParts.get(i ) ))
-                    System.out.println("You lost"); // Add functionality
+                    System.out.println("BODY COLLISION");
         }
+        // Wall collision
+        if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 768) {
+            System.out.println("WALL COLLISION");
+        }
+
     }
 
     public void increaseVelocity(){

@@ -44,8 +44,7 @@ public class GameScreen extends Screen implements ApplicationListener {
             snake.drawBody(batch);
             snake.drawHead(batch, direction);
 
-            snake.checkAppleCollision(apple);
-            snake.checkBodyCollision();
+            snake.checkCollision(apple, snakeGulpSound);
             apple.drawApple(batch);
             batch.end();
 
