@@ -1,11 +1,13 @@
-package com.mygdx.game;
+package objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 
 public class Snake {
@@ -15,10 +17,12 @@ public class Snake {
     float headX;
     float headY;
     public static long velocity = 500000000;
+    public boolean collisionDetected;
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
         this.bodyTexture = bodyTexture;
+        collisionDetected = false;
 
         bodyParts = new ArrayList<>();
         bodyParts.add(new Vector2(384,384)); // Initial position of the snake
@@ -96,16 +100,15 @@ public class Snake {
         }
         // Snake body collision
         for(int i = 2; i < bodyParts.size(); i++){
-                if(headPos.equals(bodyParts.get(i ) ))
-                    System.out.println("BODY COLLISION");
+                if(headPos.equals(bodyParts.get(i ))) {
+                    Gdx.app.exit();
+                }
         }
         // Wall collision
         if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 768) {
-            System.out.println("WALL COLLISION");
+            Gdx.app.exit();
         }
-
     }
-
     public void increaseVelocity(){
         if (velocity >= 100000000) {
             velocity -= 20000000;

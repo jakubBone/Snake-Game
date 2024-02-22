@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package screen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -8,10 +8,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import objects.Apple;
+import objects.Snake;
 
 public class GameScreen extends Screen implements ApplicationListener {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
+    private Sound gameOverSound;
     private Apple apple;
     private Snake snake;
     private int direction;
@@ -23,6 +26,7 @@ public class GameScreen extends Screen implements ApplicationListener {
             apple = new Apple(new Texture("apple.png"));
 
             snakeGulpSound = Gdx.audio.newSound(Gdx.files.internal("snakeGulpSound.wav"));
+            gameOverSound = Gdx.audio.newSound(Gdx.files.internal("gameOverSound.wav"));
             snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
             snakeMoveSound.play();
             snakeMoveSound.setLooping(true);
@@ -32,6 +36,7 @@ public class GameScreen extends Screen implements ApplicationListener {
         }
 
         public void render() {
+
             ScreenUtils.clear(0, 0, 0, 0);
             camera.update();
 
@@ -39,6 +44,7 @@ public class GameScreen extends Screen implements ApplicationListener {
 
             updateSnakeMovement();
             handleInput();
+
             batch.begin();
 
             snake.drawBody(batch);
@@ -68,7 +74,6 @@ public class GameScreen extends Screen implements ApplicationListener {
                 lastMoveTime = currentTime;
             }
         }
-
         public void dispose() {
             snake.dispose();
             apple.dispose();
@@ -76,4 +81,5 @@ public class GameScreen extends Screen implements ApplicationListener {
             snakeGulpSound.dispose();
             snakeMoveSound.dispose();
         }
+
 }
