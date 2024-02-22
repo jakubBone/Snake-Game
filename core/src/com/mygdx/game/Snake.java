@@ -11,21 +11,16 @@ public class Snake {
     public Texture headTexture;
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
-    private Screen screen;
     float headX;
     float headY;
     public static long velocity = 500000000;
-
-
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
         this.bodyTexture = bodyTexture;
 
         bodyParts = new ArrayList<>();
-
-        bodyParts.add(new Vector2(384, 384)); // Initial position of the snake
-
+        bodyParts.add(new Vector2(0,0)); // Initial position of the snake
     }
     public void drawHead(SpriteBatch batch, int direction) {
         TextureRegion region;
@@ -90,18 +85,18 @@ public class Snake {
     }
 
     public void checkAppleCollision(Apple apple) {
-        float appleX = apple.getPosition().x;
-        float appleY = apple.getPosition().y;
-
-        float distance = Vector2.dst(headX, headY, appleX, appleY);
-        float collisionRadius = 50; // 50px is radius of collision area
-
-        if (distance < collisionRadius) {
+        Vector2 headPos = bodyParts.get(0);
+        // Apple collision
+        if(headPos.equals(apple.getPos())) {
             grow();
             apple.respawn();
         }
+        // Snake body collision
+        for(int i = 2; i < bodyParts.size(); i++){
+                if(headPos.equals(bodyParts.get(i ) ))
+                    System.out.println("You lost"); // Add functionality
+        }
     }
-
 
     public void increaseVelocity(){
         if (velocity >= 100000000) {

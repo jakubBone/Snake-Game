@@ -8,13 +8,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Apple {
     private Texture appleTexture;
     private Vector2 applePosition;
-    private Screen screen;
+    private int gridSize;
 
     public Apple(Texture appleTexture){
         this.appleTexture = appleTexture;
-        screen = new Screen();
-        //applePosition = new Vector2(MathUtils.random(0, 800 - appleTexture.getWidth()), MathUtils.random(0, 800 - appleTexture.getHeight()));
-        applePosition = new Vector2(MathUtils.random(0, screen.cols - screen.cellSize), MathUtils.random(0, screen.cols - screen.screenSize));
+        gridSize = 64;
+        applePosition = dropApple();
 
     }
 
@@ -22,12 +21,24 @@ public class Apple {
         batch.draw(appleTexture, applePosition.x, applePosition.y);
     }
 
-    public Vector2 getPosition(){
+    public Vector2 getPos(){
         return applePosition;
     }
 
     public void respawn(){
-        applePosition.set(MathUtils.random(0, 800 - 64), MathUtils.random(0, 800 - 64));
+        applePosition = dropApple();
+    }
+
+    public Vector2 dropApple(){
+        int randomGridX = MathUtils.random(0, 768 - gridSize);
+        int randomGridY = MathUtils.random(0, 768 - gridSize);
+
+        // Round to the nearest grid 64x64
+        int applePosX = Math.round(randomGridX / gridSize) * gridSize;
+        int applePosY = Math.round(randomGridY / gridSize) * gridSize;
+
+        return new Vector2(applePosX, applePosY);
+
     }
     public void dispose() {
         appleTexture.dispose();

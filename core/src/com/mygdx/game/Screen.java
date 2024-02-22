@@ -13,12 +13,11 @@ public class Screen extends ScreenAdapter  {
     protected SpriteBatch batch;
     protected int screenSize;
     protected int cellSize;
-    protected int cols;
-    protected int rows;
+    protected int cellsNumber;
 
     public void setScreenDetails(){
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 768, 768);
 
         screen = new Rectangle();
         batch = new SpriteBatch();
@@ -26,20 +25,6 @@ public class Screen extends ScreenAdapter  {
         screenSize = 768;
         cellSize = 64;
 
-        cols = screenSize / cellSize;
-        rows = screenSize / cellSize;
+        cellsNumber = screenSize / cellSize;
     }
-
-    public int getCellSize() {
-        return cellSize;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
 }
