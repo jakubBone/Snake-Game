@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -12,7 +13,12 @@ public class Apple {
     public Apple(Texture appleTexture){
         this.appleTexture = appleTexture;
         applePosition = new Vector2(MathUtils.random(0, 800 - appleTexture.getWidth()), MathUtils.random(0, 800 - appleTexture.getHeight()));
+
     }
+    /*public Apple(Texture appleTexture){
+        this.appleTexture = appleTexture;
+        applePosition = new Vector2(MathUtils.random(0, 800 - appleTexture.getWidth()), MathUtils.random(0, 800 - appleTexture.getHeight()));
+    }*/
 
     public void drawApple(SpriteBatch batch){
         batch.draw(appleTexture, applePosition.x, applePosition.y);

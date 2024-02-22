@@ -22,7 +22,8 @@ public class GameScreen extends ScreenAdapter implements ApplicationListener {
     private int direction;
     private long lastMoveTime;
 
-        public void create() {
+
+    public void create() {
             snake = new Snake(new Texture("snakeHead.png"),new Texture("snakeBody.png"));
             apple = new Apple(new Texture("apple.png"));
 
