@@ -1,6 +1,6 @@
 package screens;
 
-import com.badlogic.gdx.Gdx;
+import buttons.Button;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,7 +28,7 @@ public class Screen extends ScreenAdapter  {
 
         playButton = new Button("playButton.png", 100, 50, 200, 70 );
         exitButton = new Button("exitButton.png", 488, 50, 200, 70 );
-        //tryAgainButton = new Button("tryAgainButton", 488, 50, 200, 70);
+        tryAgainButton = new Button("tryAgainButton.png", 100, 50, 200, 70);
         //returnButton = new Button("returnButton", 488, 50, 200, 70 );
 
         screen = new Rectangle();

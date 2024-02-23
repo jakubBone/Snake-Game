@@ -1,6 +1,5 @@
 package objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,15 +13,15 @@ public class Snake {
     public Texture headTexture;
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
-    float headX;
-    float headY;
+    private float headX;
+    private float headY;
     public static long velocity = 500000000;
-    public boolean collisionDetected;
+    public boolean ifCollisionDetected;
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
         this.bodyTexture = bodyTexture;
-        collisionDetected = false;
+        ifCollisionDetected = false;
 
         bodyParts = new ArrayList<>();
         bodyParts.add(new Vector2(384,384)); // Initial position of the snake
@@ -101,14 +100,15 @@ public class Snake {
         // Snake body collision
         for(int i = 2; i < bodyParts.size(); i++){
                 if(headPos.equals(bodyParts.get(i ))) {
-                    Gdx.app.exit();
+                    ifCollisionDetected = true;
                 }
         }
         // Wall collision
         if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 768) {
-            Gdx.app.exit();
+            ifCollisionDetected = true;
         }
     }
+
     public void increaseVelocity(){
         if (velocity >= 100000000) {
             velocity -= 20000000;

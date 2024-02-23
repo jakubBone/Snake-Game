@@ -1,5 +1,6 @@
-package screens;
+package buttons;
 
+import buttons.ButtonClickListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,13 +8,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-public class Button {
+
+public class Button  {
     private Texture buttonTexture;
     private Rectangle bounds;
     private boolean isPressed;
     private boolean isTransparent;
     private static final Color NORMAL_COLOR = new Color(1, 1, 1, 1);
     private static final Color TRANSPARENT_COLOR = new Color(1, 1, 1, 0.5f);
+
+    private ButtonClickListener clickListener;
 
     public Button(String texturePath, float x, float y, float width, float height) {
         buttonTexture = new Texture(Gdx.files.internal(texturePath));
@@ -30,7 +34,7 @@ public class Button {
         }
 
         batch.draw(buttonTexture, bounds.x, bounds.y, bounds.width, bounds.height);
-        batch.setColor(NORMAL_COLOR); // Reset color to avoid affecting subsequent rendering
+        batch.setColor(NORMAL_COLOR);
     }
 
     public void checkTouch(Vector3 touchPos) {
@@ -38,6 +42,12 @@ public class Button {
             setTransparent(true);
         } else {
             setTransparent(false);
+        }
+    }
+
+    public void checkClick(Vector3 touchPos) {
+        if (isTouched(touchPos) && clickListener != null) {
+            clickListener.onClick();
         }
     }
 
@@ -49,6 +59,9 @@ public class Button {
         isTransparent = transparent;
     }
 
+    public void setClickListener(ButtonClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
 
     public void setPressed(boolean pressed) {
         isPressed = pressed;
@@ -57,6 +70,7 @@ public class Button {
     public boolean isPressed() {
         return isPressed;
     }
+
 
     public void dispose() {
         buttonTexture.dispose();
