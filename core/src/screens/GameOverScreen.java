@@ -21,8 +21,7 @@ public class GameOverScreen extends Screen implements ApplicationListener {
         returnButton.setClickListener(new ButtonClickListener() {
             @Override
             public void onClick() {
-                System.out.println();
-                Gdx.app.exit(); // Exit Menu Window when PLAY is clicked
+                // ----> Restore the game from 1st Screen (MenuScreen) <-----
             }
         });
     }
