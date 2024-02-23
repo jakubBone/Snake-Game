@@ -5,17 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 
-public class WelcomeScreen extends Screen implements ApplicationListener {
+public class MenuScreen extends Screen implements ApplicationListener {
     private Music snakeWelcomeMusic;
     public void create() {
         setScreenDetails();
+        image = new Texture("menuImage.png");
 
-        image = new Texture("welcomeImage.png");
-
-        snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("welcomeMusic.mp3"));
+        snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
         snakeWelcomeMusic.setLooping(true);
         snakeWelcomeMusic.play();
+
     }
 
     public void render() {
@@ -27,12 +28,21 @@ public class WelcomeScreen extends Screen implements ApplicationListener {
 
         batch.begin();
         batch.draw(image, screen.x, screen.y);
+        playButton.render(batch);
+        exitButton.render(batch);
+
         batch.end();
+
+        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(touchPos);
+        playButton.checkTouch(touchPos);
+        exitButton.checkTouch(touchPos);
     }
 
     public void dispose() {
         image.dispose();
         snakeWelcomeMusic.dispose();
         batch.dispose();
+        playButton.dispose();
     }
 }
