@@ -11,16 +11,17 @@ import com.badlogic.gdx.math.Vector3;
 public class Screen extends ScreenAdapter  {
     protected Texture image;
     protected OrthographicCamera camera;
-    Vector3 touchPos;
+    protected Vector3 touchPos;
     protected Rectangle screen;
     protected SpriteBatch batch;
     protected int screenSize;
     protected int cellSize;
     protected int cellsNumber;
-    Button playButton;
-    Button exitButton;
-    Button returnButton;
-    Button tryAgainButton;
+    protected Button playButton;
+    protected Button exitButton;
+    protected Button returnButton;
+    protected Button tryAgainButton;
+
 
     public void setScreenDetails(){
         camera = new OrthographicCamera();
@@ -29,7 +30,7 @@ public class Screen extends ScreenAdapter  {
         playButton = new Button("playButton.png", 100, 50, 200, 70 );
         exitButton = new Button("exitButton.png", 488, 50, 200, 70 );
         tryAgainButton = new Button("tryAgainButton.png", 100, 50, 200, 70);
-        //returnButton = new Button("returnButton", 488, 50, 200, 70 );
+        returnButton = new Button("returnButton.png", 282, 50, 200, 70 );
 
         screen = new Rectangle();
         batch = new SpriteBatch();
