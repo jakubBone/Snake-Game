@@ -1,6 +1,8 @@
 package screens;
 
 import buttons.Button;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
-public class MyScreen extends ScreenAdapter  {
+public class MyScreen extends ScreenAdapter implements Screen {
     protected Texture image;
     protected OrthographicCamera camera;
     protected Vector3 touchPos;

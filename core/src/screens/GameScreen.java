@@ -1,6 +1,7 @@
 package screens;
 
 import buttons.ButtonClickListener;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,7 +17,6 @@ import objects.Snake;
 public class GameScreen extends MyScreen implements ApplicationListener {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
-    private Sound gameOverSound;
     private Apple apple;
     private Snake snake;
     private int direction;
@@ -33,7 +33,6 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         tryAgainImage = new Texture("tryAgainImage.png");
 
         snakeGulpSound = Gdx.audio.newSound(Gdx.files.internal("snakeGulpSound.wav"));
-        gameOverSound = Gdx.audio.newSound(Gdx.files.internal("gameOverSound.wav"));
         snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
         snakeMoveSound.play();
         snakeMoveSound.setLooping(true);
