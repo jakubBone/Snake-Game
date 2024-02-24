@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import objects.Apple;
 import objects.Snake;
 
-public class GameScreen extends Screen implements ApplicationListener {
+public class GameScreen extends MyScreen implements ApplicationListener {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
     private Sound gameOverSound;

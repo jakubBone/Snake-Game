@@ -9,8 +9,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 
-public class MenuScreen extends Screen implements ApplicationListener {
+public class MenuScreen extends MyScreen implements ApplicationListener {
     private Music snakeWelcomeMusic;
+
     public void create() {
         setScreenDetails();
         image = new Texture("menuImage.png");
@@ -23,7 +24,6 @@ public class MenuScreen extends Screen implements ApplicationListener {
         playButton.setClickListener(new ButtonClickListener() {
             @Override
             public void onClick() {
-                System.out.println();
                 Gdx.app.exit(); // Exit Menu Window when PLAY is clicked
             }
         });

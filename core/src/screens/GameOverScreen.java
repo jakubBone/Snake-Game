@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class GameOverScreen extends Screen implements ApplicationListener {
+public class GameOverScreen extends MyScreen implements ApplicationListener {
     private Music gameOverSound;
     public void create() {
         setScreenDetails();
