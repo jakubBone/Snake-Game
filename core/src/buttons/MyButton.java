@@ -1,6 +1,5 @@
 package buttons;
 
-import buttons.ButtonClickListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 
-public class Button  {
+public class MyButton {
     private Texture buttonTexture;
     private Rectangle bounds;
     private boolean isPressed;
@@ -19,7 +18,7 @@ public class Button  {
 
     private ButtonClickListener clickListener;
 
-    public Button(String texturePath, float x, float y, float width, float height) {
+    public MyButton(String texturePath, float x, float y, float width, float height) {
         buttonTexture = new Texture(Gdx.files.internal(texturePath));
         bounds = new Rectangle(x, y, width, height);
         isPressed = false;

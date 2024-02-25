@@ -15,14 +15,15 @@ public class Snake {
     private ArrayList<Vector2> bodyParts;
     private float headX;
     private float headY;
-    public static long velocity = 500000000;
+    public static long movementIntervalTimeNano = 500000000;
+    public static int velocity = 1;
     public boolean ifCollisionDetected;
+    public static int attempts = 4;
 
     public Snake(Texture headTexture, Texture bodyTexture){
         this.headTexture = headTexture;
         this.bodyTexture = bodyTexture;
         ifCollisionDetected = false;
-
         bodyParts = new ArrayList<>();
         bodyParts.add(new Vector2(384,384)); // Initial position of the snake
     }
@@ -88,7 +89,7 @@ public class Snake {
         increaseVelocity();
     }
 
-    public void checkCollision(Apple apple, Sound gulp) {
+    public void checkCollision(Apple apple, Sound gulp, Sound hitSound) {
         Vector2 headPos = bodyParts.get(0);
 
         // Apple collision
@@ -101,19 +102,28 @@ public class Snake {
         for(int i = 2; i < bodyParts.size(); i++){
                 if(headPos.equals(bodyParts.get(i ))) {
                     ifCollisionDetected = true;
+                    resetVelocity();
                 }
         }
         // Wall collision
-        if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 768) {
+        if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 704) {
             ifCollisionDetected = true;
+            resetVelocity();
         }
     }
 
     public void increaseVelocity(){
-        if (velocity >= 100000000) {
-            velocity -= 20000000;
+        if (movementIntervalTimeNano >= 100000000) {
+            movementIntervalTimeNano -= 20000000;
+            velocity ++;
+
         }
     }
+    public void resetVelocity(){
+            movementIntervalTimeNano = 500000000;
+            velocity = 1;
+    }
+
     public void dispose(){
         headTexture.dispose();
         bodyTexture.dispose();

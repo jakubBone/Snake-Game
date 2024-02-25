@@ -11,11 +11,9 @@ import com.badlogic.gdx.math.Vector3;
 
 public class MenuScreen extends MyScreen implements ApplicationListener  {
     private Music snakeWelcomeMusic;
-    ScreenManager screenManager;
+
     public void create() {
-        screenManager = new ScreenManager();
-        //gameScreen = new GameScreen();
-        setScreenDetails();
+        setGameScreenDetails();
         image = new Texture("menuImage.png");
 
         snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
@@ -26,7 +24,7 @@ public class MenuScreen extends MyScreen implements ApplicationListener  {
         playButton.setClickListener(new ButtonClickListener() {
             @Override
             public void onClick() {
-                screenManager.setScreen(new GameScreen());
+                //
             }
         });
 

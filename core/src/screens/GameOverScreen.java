@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class GameOverScreen extends MyScreen implements ApplicationListener  {
     private Music gameOverSound;
     public void create() {
-        setScreenDetails();
+        setGameScreenDetails();
         image = new Texture("gameOverImage.png");
         gameOverSound = Gdx.audio.newMusic(Gdx.files.internal("gameOverSound.wav"));
         gameOverSound.play();
