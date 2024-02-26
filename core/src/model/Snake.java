@@ -1,4 +1,4 @@
-package objects;
+package model;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -16,7 +16,7 @@ public class Snake {
     private float headX;
     private float headY;
     public static long movementIntervalTimeNano = 500000000;
-    public static int velocity = 1;
+    public static int speed = 1;
     public boolean ifCollisionDetected;
     public static int attempts = 4;
 
@@ -115,13 +115,13 @@ public class Snake {
     public void increaseVelocity(){
         if (movementIntervalTimeNano >= 100000000) {
             movementIntervalTimeNano -= 20000000;
-            velocity ++;
+            speed++;
 
         }
     }
     public void resetVelocity(){
             movementIntervalTimeNano = 500000000;
-            velocity = 1;
+            speed = 1;
     }
 
     public void dispose(){

@@ -5,8 +5,8 @@ JvmtiExport can_post_on_exceptions 0
 ciInstanceKlass java/lang/Cloneable 1 0 7 100 1 100 1 1 1
 instanceKlass com/badlogic/gdx/backends/lwjgl3/Sync$1
 instanceKlass com/badlogic/gdx/backends/lwjgl3/Lwjgl3Window$6$1
-instanceKlass screens/MenuScreen$2
-instanceKlass screens/MenuScreen$1
+instanceKlass screen/MenuScreen$2
+instanceKlass screen/MenuScreen$1
 instanceKlass javazoom/jl/decoder/LayerIIIDecoder$gr_info_s
 instanceKlass javazoom/jl/decoder/LayerIIIDecoder$temporaire
 instanceKlass javazoom/jl/decoder/LayerIIIDecoder$III_side_info_t

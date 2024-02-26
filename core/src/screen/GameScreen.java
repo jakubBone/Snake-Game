@@ -1,6 +1,6 @@
-package screens;
+package screen;
 
-import buttons.ButtonClickListener;
+import button.ButtonClickListener;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,13 +13,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import objects.Apple;
-import objects.Snake;
+import model.Apple;
+import model.Snake;
 
 public class GameScreen extends MyScreen implements ApplicationListener {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
-
     private Sound hitSound;
     private ShapeRenderer shapeRenderer;
     private Texture tryAgainImage;
@@ -70,6 +69,7 @@ public class GameScreen extends MyScreen implements ApplicationListener {
     }
 
     public void render() {
+
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -107,9 +107,9 @@ public class GameScreen extends MyScreen implements ApplicationListener {
                 exitButton.checkClick(touchPos);
             }
         }
-            if (batch.isDrawing()) {
-                batch.end();
-            }
+        if (batch.isDrawing()) {
+            batch.end();
+        }
         }
     private void drawBorderLine(){
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -125,7 +125,7 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         for (int i = 0; i < snake.attempts; i++) {
             batch.draw(snake.headTexture,120  + (i * iconWidth ), 714, 32, 32);
             font.draw(batch, "Attemtps:", 30, 740);
-            font.draw(batch, "Velocity:  " + Snake.velocity, 660, 740);
+            font.draw(batch, "Speed:  " + Snake.speed, 660, 740);
         }
     }
 

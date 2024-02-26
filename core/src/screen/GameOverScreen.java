@@ -1,6 +1,6 @@
-package screens;
+package screen;
 
-import buttons.ButtonClickListener;
+import button.ButtonClickListener;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,7 +21,7 @@ public class GameOverScreen extends MyScreen implements ApplicationListener  {
         returnButton.setClickListener(new ButtonClickListener() {
             @Override
             public void onClick() {
-                // ----> Restore the game from 1st Screen (MenuScreen) <-----
+                // ----> Need to restore the game from 1st Screen (MenuScreen) <-----
             }
         });
     }

@@ -1,6 +1,6 @@
-package screens;
+package screen;
 
-import buttons.ButtonClickListener;
+import button.ButtonClickListener;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -24,7 +24,7 @@ public class MenuScreen extends MyScreen implements ApplicationListener  {
         playButton.setClickListener(new ButtonClickListener() {
             @Override
             public void onClick() {
-                //
+                Gdx.app.exit();
             }
         });
 

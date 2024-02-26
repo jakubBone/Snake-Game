@@ -1,4 +1,4 @@
-package buttons;
+package button;
 
 public interface ButtonClickListener {
     void onClick();

@@ -1,7 +1,10 @@
 package com.mygdx.game;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import screens.GameScreen;
+import screen.GameOverScreen;
+import screen.GameScreen;
+import screen.MenuScreen;
+
 public class DesktopLauncher {
 	public static void main(String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
@@ -10,9 +13,8 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.useVsync(true);
 
-
-			//new Lwjgl3Application(new MenuScreen(), config);
+			new Lwjgl3Application(new MenuScreen(), config);
 			new Lwjgl3Application(new GameScreen(), config);
-			//new Lwjgl3Application(new GameOverScreen(), config);
+			new Lwjgl3Application(new GameOverScreen(), config);
 	}
 }
