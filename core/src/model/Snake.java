@@ -13,8 +13,6 @@ public class Snake {
     public Texture headTexture;
     public  Texture bodyTexture;
     private ArrayList<Vector2> bodyParts;
-    private float headX;
-    private float headY;
     public static long movementIntervalTimeNano = 500000000;
     public static int speed = 1;
     public boolean ifCollisionDetected;
@@ -27,12 +25,14 @@ public class Snake {
         bodyParts = new ArrayList<>();
         bodyParts.add(new Vector2(384,384)); // Initial position of the snake
     }
+
     public void drawHead(SpriteBatch batch, int direction) {
         TextureRegion region;
-        headX = bodyParts.get(0).x;
-        headY = bodyParts.get(0).y;
+        float headX = bodyParts.get(0).x;
+        float headY = bodyParts.get(0).y;
 
-        // Region modification necessary only for UP and DOWN movement directions
+        // Snake's head turning depending to the current movement direction
+        // Turn is necessary only for UP and DOWN directions
         switch (direction) {
             case Input.Keys.UP:
                 region = new TextureRegion(headTexture);
@@ -60,6 +60,7 @@ public class Snake {
     public void move(int direction) {
         Vector2 previousPosition = new Vector2(bodyParts.get(0));
 
+        // Snake's moves depending of direction
         // 64px is width and length of snakeBody.png
         switch(direction){
             case Input.Keys.UP:
@@ -76,6 +77,8 @@ public class Snake {
                 break;
         }
 
+        // All of snake's body elements moves behind the head
+        // It simulates snake move
         for (int i = 1; i < bodyParts.size(); i++) {
             Vector2 currentPosition = new Vector2(bodyParts.get(i));
             bodyParts.set(i, new Vector2(previousPosition));
@@ -83,6 +86,8 @@ public class Snake {
         }
 
     }
+
+    // Add a new snake body element and increase speed all the time when apple is eaten
     public void grow() {
         Vector2 tail = bodyParts.get(bodyParts.size() - 1);
         bodyParts.add(new Vector2(tail.x, tail.y));
@@ -92,26 +97,29 @@ public class Snake {
     public void checkCollision(Apple apple, Sound gulp, Sound hitSound) {
         Vector2 headPos = bodyParts.get(0);
 
-        // Apple collision
+        // Apple collision checking
         if(headPos.equals(apple.getPos())) {
             gulp.play();
             grow();
             apple.respawn();
         }
-        // Snake body collision
+
+        // Snake body collision checking
         for(int i = 2; i < bodyParts.size(); i++){
                 if(headPos.equals(bodyParts.get(i ))) {
                     ifCollisionDetected = true;
                     resetVelocity();
                 }
         }
-        // Wall collision
+
+        // Wall collision checking
         if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 704) {
             ifCollisionDetected = true;
             resetVelocity();
         }
     }
-
+    // Interval starts from 500000000 nanosecomds decreases when the apple is eaten
+    // Interval decrease = speed increase
     public void increaseVelocity(){
         if (movementIntervalTimeNano >= 100000000) {
             movementIntervalTimeNano -= 20000000;

@@ -23,10 +23,8 @@ public class GameScreen extends MyScreen implements ApplicationListener {
     private ShapeRenderer shapeRenderer;
     private Texture tryAgainImage;
     private BitmapFont font;
-
     private Apple apple;
     private Snake snake;
-
     private int direction;
     private long lastMoveTime;
 
@@ -44,37 +42,20 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         snakeMoveSound.play();
         snakeMoveSound.setLooping(true);
 
-        Snake.attempts--;
         setGameScreenDetails();
-
-        // TRY AGAIN button click handling
-        tryAgainButton.setClickListener(new ButtonClickListener() {
-
-            @Override
-            public void onClick() {
-                create(); // Restore the game when TRY AGAIN button is clicked
-            }
-        });
-
-        // EXIT button click handling
-        exitButton.setClickListener(new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                System.exit(0); // Exit the application when EXIT button is clicked
-            }
-        });
+        handleGameButtons();
 
         direction = Input.Keys.RIGHT;
         lastMoveTime = TimeUtils.nanoTime();
+        Snake.attempts--;
     }
 
     public void render() {
-
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        drawBorderLine();
+        drawHeadUpZoneLine();
 
         batch.begin();
         updateSnakeMovement();
@@ -84,8 +65,7 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         snake.checkCollision(apple, snakeGulpSound, hitSound);
         apple.drawApple(batch);
 
-        drawAttemptsDetails();
-
+        drawHeadUpZoneDetails();
 
         if (snake.ifCollisionDetected) {
             if(snake.attempts == 1){
@@ -94,39 +74,33 @@ public class GameScreen extends MyScreen implements ApplicationListener {
             batch.draw(tryAgainImage, screen.x, screen.y);
             tryAgainButton.render(batch);
             exitButton.render(batch);
-
-            // Get touch mouse position
-            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-            // Check if buttons are touched to apply transparency effect on them
-            tryAgainButton.checkTouch(touchPos);
-            exitButton.checkTouch(touchPos);
-            // Handle mouse click
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                tryAgainButton.checkClick(touchPos);
-                exitButton.checkClick(touchPos);
-            }
+            controlMouseCursorTouch();
         }
+
         if (batch.isDrawing()) {
             batch.end();
         }
-        }
-    private void drawBorderLine(){
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.line(0, 704, Gdx.graphics.getWidth(), 704);
-            shapeRenderer.end();
     }
-    private void drawAttemptsDetails(){
+
+    // Head-up zone with remaining attempts and snake's speed displayed
+    private void drawHeadUpZoneDetails(){
         int iconWidth = snake.headTexture.getWidth();
         font.getData().setScale(1.1f);
 
-        // Rysuj ikony węża w pętli
+        // Attempts icons displaying represented by snake's heads (1 attempt = 1 icon)
         for (int i = 0; i < snake.attempts; i++) {
             batch.draw(snake.headTexture,120  + (i * iconWidth ), 714, 32, 32);
             font.draw(batch, "Attemtps:", 30, 740);
             font.draw(batch, "Speed:  " + Snake.speed, 660, 740);
         }
+    }
+
+    // Line separating the playing zone from the head-up zone
+    private void drawHeadUpZoneLine(){
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.line(0, 704, Gdx.graphics.getWidth(), 704);
+            shapeRenderer.end();
     }
 
     private void handleInput() {
@@ -140,11 +114,46 @@ public class GameScreen extends MyScreen implements ApplicationListener {
             direction = Input.Keys.RIGHT;
     }
 
+    // Snake's movement contol basedon the specified time interval
+    // Expressed in nanoseconds and the current direction
     public void updateSnakeMovement() {
         long currentTime = TimeUtils.nanoTime();
         if (currentTime - lastMoveTime > Snake.movementIntervalTimeNano) {
             snake.move(direction);
             lastMoveTime = currentTime;
+        }
+    }
+
+    // "TRY AGAIN" and "EXIT" buttons clicks handling
+    public void handleGameButtons(){
+        tryAgainButton.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void onClick() {
+                create(); // Restore the game
+            }
+        });
+        exitButton.setClickListener(new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                System.exit(0); // Exit game
+            }
+        });
+    }
+
+    public void controlMouseCursorTouch(){
+        // Mouse cursor position controling
+        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(touchPos);
+
+        // Button transparency effect applying when they are touched
+        tryAgainButton.checkTouch(touchPos);
+        exitButton.checkTouch(touchPos);
+
+        // Mouse click hangling
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            tryAgainButton.checkClick(touchPos);
+            exitButton.checkClick(touchPos);
         }
     }
 

@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector3;
 
 public class MenuScreen extends MyScreen implements ApplicationListener  {
     private Music snakeWelcomeMusic;
-
     public void create() {
         setGameScreenDetails();
         image = new Texture("menuImage.png");
@@ -20,22 +19,9 @@ public class MenuScreen extends MyScreen implements ApplicationListener  {
         snakeWelcomeMusic.setLooping(true);
         snakeWelcomeMusic.play();
 
-        // PLAY button click handling
-        playButton.setClickListener(new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                Gdx.app.exit();
-            }
-        });
-
-        // EXIT button click handling
-        exitButton.setClickListener(new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                System.exit(0); // Exit the application when EXIT is clicked
-            }
-        });
+        handleMenuButtonsClick();
     }
+
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -49,22 +35,46 @@ public class MenuScreen extends MyScreen implements ApplicationListener  {
         playButton.render(batch);
         exitButton.render(batch);
 
-        // Get touch mouse position
+        controlMouseCursorTouch();
+
+        batch.end();
+    }
+
+    // "PLAY" and "EXIT" buttons clicks handling
+    public void handleMenuButtonsClick(){
+        playButton.setClickListener(new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                Gdx.app.exit(); // -----------------------------> Need to switch to 2nd GameScreen
+            }
+        });
+        exitButton.setClickListener(new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                System.exit(0); // Exit game
+            }
+        });
+    }
+
+    public void controlMouseCursorTouch(){
+        // Mouse cursor position controling
         Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(touchPos);
 
-
-        // Check if buttons are touched to apply transparency effect on them
+        // Button transparency effect applying when they are touched
         playButton.checkTouch(touchPos);
         exitButton.checkTouch(touchPos);
 
-        // Handle mouse click
+        // Mouse click hangling
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             playButton.checkClick(touchPos);
             exitButton.checkClick(touchPos);
         }
+    }
 
-        batch.end();
+    @Override
+    public void hide() {
+        super.hide();
     }
 
     public void dispose() {

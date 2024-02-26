@@ -63,15 +63,6 @@ public class MyButton {
         this.clickListener = clickListener;
     }
 
-    public void setPressed(boolean pressed) {
-        isPressed = pressed;
-    }
-
-    public boolean isPressed() {
-        return isPressed;
-    }
-
-
     public void dispose() {
         buttonTexture.dispose();
     }
