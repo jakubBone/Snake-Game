@@ -15,14 +15,14 @@ public class DesktopLauncher {
 		config.useVsync(true);
 
 
-		/*MenuScreen menuScreen = new MenuScreen();
+		MenuScreen menuScreen = new MenuScreen();
 		GameScreen gameScreen = new GameScreen();
-		GameOverScreen gameOverScreen = new GameOverScreen();*/
+		GameOverScreen gameOverScreen = new GameOverScreen();
 
 
 
-			//new Lwjgl3Application(new MenuScreen(), config);
-			//new Lwjgl3Application(new GameScreen(), config);
+			new Lwjgl3Application(new MenuScreen(), config);
+			new Lwjgl3Application(new GameScreen(), config);
 			new Lwjgl3Application(new GameOverScreen(), config);
 
 	}
