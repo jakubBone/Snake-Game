@@ -20,6 +20,7 @@ import game.model.Snake;
 public class GameScreen extends ScreenSetter {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
+    private Sound hitSound;
     private Texture tryAgainImage;
     private Apple apple;
     private Snake snake;
@@ -39,6 +40,7 @@ public class GameScreen extends ScreenSetter {
         apple = new Apple(new Texture("apple.png"));
         tryAgainImage = new Texture("tryAgainImage.png");
 
+        hitSound = Gdx.audio.newSound(Gdx.files.internal("hitSound.wav"));
         snakeGulpSound = Gdx.audio.newSound(Gdx.files.internal("snakeGulpSound.wav"));
         snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
         snakeMoveSound.play();
@@ -64,7 +66,7 @@ public class GameScreen extends ScreenSetter {
         handleInput();
         snake.drawBody(batch);
         snake.drawHead(batch, direction);
-        snake.checkCollision(apple, snakeGulpSound);
+        snake.checkCollision(apple, snakeGulpSound, hitSound);
         apple.drawApple(batch);
 
         drawHeadUpZoneDetails();
