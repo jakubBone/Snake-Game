@@ -1,14 +1,15 @@
 package screen;
 
 import button.ButtonClickListener;
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import button.MyButton;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -16,19 +17,34 @@ import com.badlogic.gdx.utils.TimeUtils;
 import model.Apple;
 import model.Snake;
 
-public class GameScreen extends MyScreen implements ApplicationListener {
+public class GameScreen implements Screen {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
     private Sound hitSound;
     private ShapeRenderer shapeRenderer;
     private Texture tryAgainImage;
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
     private BitmapFont font;
     private Apple apple;
     private Snake snake;
     private int direction;
     private long lastMoveTime;
+    private MyButton tryAgainButton;
+    private MyButton exitButton;
+
+    private Game game;
+
+    public GameScreen(Game aGame) {
+        game = aGame;
+        create();
+    }
 
     public void create() {
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 768, 768);
+        batch = new SpriteBatch();
+
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
 
@@ -42,7 +58,9 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         snakeMoveSound.play();
         snakeMoveSound.setLooping(true);
 
-        setGameScreenDetails();
+        tryAgainButton = new MyButton("tryAgainButton.png", 100, 50, 200, 70);
+        exitButton = new MyButton("exitButton.png", 488, 50, 200, 70);
+
         handleGameButtons();
 
         direction = Input.Keys.RIGHT;
@@ -50,7 +68,13 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         Snake.attempts--;
     }
 
-    public void render() {
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -68,10 +92,12 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         drawHeadUpZoneDetails();
 
         if (snake.ifCollisionDetected) {
+            snakeMoveSound.pause();
             if(snake.attempts == 1){
-                Gdx.app.exit();
+                Snake.attempts = 4;
+                game.setScreen(new GameOverScreen(game));
             }
-            batch.draw(tryAgainImage, screen.x, screen.y);
+            batch.draw(tryAgainImage, 0 , 0 );
             tryAgainButton.render(batch);
             exitButton.render(batch);
             controlMouseCursorTouch();
@@ -80,6 +106,59 @@ public class GameScreen extends MyScreen implements ApplicationListener {
         if (batch.isDrawing()) {
             batch.end();
         }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    /*public void render() {
+        ScreenUtils.clear(0, 0, 0, 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
+        drawHeadUpZoneLine();
+
+        batch.begin();
+        updateSnakeMovement();
+        handleInput();
+        snake.drawBody(batch);
+        snake.drawHead(batch, direction);
+        snake.checkCollision(apple, snakeGulpSound, hitSound);
+        apple.drawApple(batch);
+
+        drawHeadUpZoneDetails();
+
+        if (snake.ifCollisionDetected) {
+            snakeMoveSound.pause();
+            if(snake.attempts == 1){
+                Gdx.app.exit();
+            }
+            batch.draw(tryAgainImage, 0 , 0 );
+            tryAgainButton.render(batch);
+            exitButton.render(batch);
+            controlMouseCursorTouch();
+        }
+
+        if (batch.isDrawing()) {
+            batch.end();
+        }
+    }
+*/
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     // Head-up zone with remaining attempts and snake's speed displayed
