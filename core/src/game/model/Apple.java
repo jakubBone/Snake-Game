@@ -35,7 +35,7 @@ public class Apple {
 
     // The method randomizes apple position until it's out of the snake body
     public Vector2 dropApple(ArrayList<Vector2> bodyParts) {
-        float randomGridX, float randomGridY;
+        float randomGridX, randomGridY;
         int applePosX, applePosY;
 
         do {
