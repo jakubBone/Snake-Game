@@ -17,20 +17,14 @@ import com.badlogic.gdx.utils.TimeUtils;
 import game.model.Apple;
 import game.model.Snake;
 
-public class GameScreen implements Screen {
+public class GameScreen extends ScreenSetter {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
-    private ShapeRenderer shapeRenderer;
     private Texture tryAgainImage;
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private BitmapFont font;
     private Apple apple;
     private Snake snake;
     private int direction;
     private long lastMoveTime;
-    private MyButton tryAgainButton;
-    private MyButton exitButton;
     private Game game;
 
     public GameScreen(Game aGame) {
@@ -39,12 +33,7 @@ public class GameScreen implements Screen {
     }
 
     public void create() {
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 768, 768);
-        batch = new SpriteBatch();
-
-        shapeRenderer = new ShapeRenderer();
-        font = new BitmapFont();
+        setBasicScreenDetails();
 
         snake = new Snake(new Texture("snakeHead.png"), new Texture("snakeBody.png"));
         apple = new Apple(new Texture("apple.png"));
@@ -54,9 +43,6 @@ public class GameScreen implements Screen {
         snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
         snakeMoveSound.play();
         snakeMoveSound.setLooping(true);
-
-        tryAgainButton = new MyButton("tryAgainButton.png", 100, 50, 200, 70);
-        exitButton = new MyButton("exitButton.png", 488, 50, 200, 70);
 
         handleGameButtons();
 
@@ -172,31 +158,6 @@ public class GameScreen implements Screen {
             tryAgainButton.checkClick(touchPos);
             exitButton.checkClick(touchPos);
         }
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     public void dispose() {

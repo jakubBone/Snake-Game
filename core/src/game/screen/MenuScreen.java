@@ -1,22 +1,14 @@
 package game.screen;
 
 import game.button.ButtonClickListener;
-import game.button.MyButton;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
-public class MenuScreen implements Screen {
-    protected Texture menuImage;
+public class MenuScreen extends ScreenSetter  {
     private Music snakeWelcomeMusic;
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private MyButton playButton;
-    private MyButton exitButton;
     private Game game;
 
     public MenuScreen(Game aGame) {
@@ -24,18 +16,11 @@ public class MenuScreen implements Screen {
         create();
     }
     public void create() {
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 768, 768);
-        batch = new SpriteBatch();
-
-        menuImage = new Texture("menuImage.png");
-
+        setBasicScreenDetails();
+        image = new Texture("menuImage.png");
         snakeWelcomeMusic = Gdx.audio.newMusic(Gdx.files.internal("menuMusic.mp3"));
         snakeWelcomeMusic.setLooping(true);
         snakeWelcomeMusic.play();
-
-        playButton = new MyButton("playButton.png", 100, 50, 200, 70);
-        exitButton = new MyButton("exitButton.png", 488, 50, 200, 70);
 
         handleMenuButtonsClick();
     }
@@ -48,7 +33,7 @@ public class MenuScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        batch.draw(menuImage, 0, 0);
+        batch.draw(image, 0, 0);
 
         playButton.render(batch);
         exitButton.render(batch);
@@ -91,33 +76,8 @@ public class MenuScreen implements Screen {
         }
     }
 
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
     public void dispose() {
-        menuImage.dispose();
+        image.dispose();
         snakeWelcomeMusic.dispose();
         batch.dispose();
         playButton.dispose();
