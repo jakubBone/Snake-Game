@@ -6,19 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import game.button.MyButton;
 
 public class ScreenSetter implements Screen {
     protected Texture image;
     protected OrthographicCamera camera;
-    protected Rectangle screen;
     protected ShapeRenderer shapeRenderer;
     protected SpriteBatch batch;
     protected  BitmapFont font;
-    protected int screenSize;
-    protected int cellSize;
-    protected int cellsNumber;
     protected MyButton playButton;
     protected MyButton exitButton;
     protected MyButton returnButton;
@@ -36,13 +31,7 @@ public class ScreenSetter implements Screen {
         exitButton = new MyButton("exitButton.png", 488, 50, 200, 70);
         tryAgainButton = new MyButton("tryAgainButton.png", 100, 50, 200, 70);
         returnButton = new MyButton("returnButton.png", 282, 50, 200, 70);
-
         font = new BitmapFont();
-
-        screen = new Rectangle();
-        screenSize = 768;
-        cellSize = 64;
-        cellsNumber = screenSize / cellSize;
     }
 
     @Override

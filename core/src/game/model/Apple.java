@@ -5,15 +5,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 public class Apple {
+
     private Texture appleTexture;
     private Vector2 applePosition;
     private int gridSize;
 
-    public Apple(Texture appleTexture){
+    public Apple(Texture appleTexture, ArrayList<Vector2> bodyParts){
+
         this.appleTexture = appleTexture;
         gridSize = 64;
-        applePosition = dropApple();
+        applePosition = dropApple(bodyParts);
 
     }
 
@@ -25,23 +29,29 @@ public class Apple {
         return applePosition;
     }
 
-    public void respawn(){
-        applePosition = dropApple();
+    public void respawn(ArrayList<Vector2> bodyParts){
+            applePosition = dropApple(bodyParts);
     }
 
-    public Vector2 dropApple(){
-        int randomGridX = MathUtils.random(0, 768 - gridSize);
-        int randomGridY = MathUtils.random(0, 768 - gridSize);
+    // The method randomizes apple position until it's out of the snake body
+    public Vector2 dropApple(ArrayList<Vector2> bodyParts) {
+        float randomGridX, float randomGridY;
+        int applePosX, applePosY;
 
-        // Round apple position to the nearest grid 64x64
-        int applePosX = Math.round(randomGridX / gridSize) * gridSize;
-        int applePosY = Math.round(randomGridY / gridSize) * gridSize;
+        do {
+            randomGridX = MathUtils.random(0, 768 - gridSize);
+            randomGridY = MathUtils.random(0, 768 - gridSize);
+
+            // Round apple position to the nearest grid 64x64
+            applePosX = Math.round(randomGridX / gridSize) * gridSize;
+            applePosY = Math.round(randomGridY / gridSize) * gridSize;
+        }
+        while (bodyParts.contains(new Vector2(applePosX, applePosY)));
 
         return new Vector2(applePosX, applePosY);
-
     }
+
     public void dispose() {
         appleTexture.dispose();
     }
-
 }

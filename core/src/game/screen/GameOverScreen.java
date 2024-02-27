@@ -20,6 +20,7 @@ public class GameOverScreen extends ScreenSetter  {
         setBasicScreenDetails();
 
         image = new Texture("gameOverImage.png");
+
         gameOverSound = Gdx.audio.newMusic(Gdx.files.internal("gameOverSound.wav"));
         gameOverSound.play();
 
@@ -33,14 +34,13 @@ public class GameOverScreen extends ScreenSetter  {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
+
         batch.draw(image, 0, 0);
-
         returnButton.render(batch);
-
         controlMouseCursonTouch();
+
         batch.end();
     }
-
 
     // "RETRUN TO MAIN MENU" button clicks handling
     public void handleGameOverButton(){

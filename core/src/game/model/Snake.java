@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Snake {
     public Texture headTexture;
     public  Texture bodyTexture;
-    private ArrayList<Vector2> bodyParts;
+    public ArrayList<Vector2> bodyParts;
     public static long movementIntervalTimeNano = 500000000;
     public static int speed = 1;
     public boolean ifCollisionDetected;
@@ -30,8 +30,8 @@ public class Snake {
 
     public void drawHead(SpriteBatch batch, int direction) {
         TextureRegion region;
-        float headX = bodyParts.get(0).x;
-        float headY = bodyParts.get(0).y;
+        float headX = bodyParts.get(0).x ;
+        float headY = bodyParts.get(0).y ;
 
         // Snake's head turning depending to the current movement direction
         // Turn is necessary only for UP and DOWN directions
@@ -103,7 +103,7 @@ public class Snake {
         if(headPos.equals(apple.getPos())) {
             gulp.play();
             grow();
-            apple.respawn();
+            apple.respawn(bodyParts);
         }
 
         // Snake body collision checking
@@ -142,6 +142,9 @@ public class Snake {
             hitSound.play();
             collisionSoundPlayed = true;
         }
+    }
+    public Vector2 getHeadPos(){
+        return bodyParts.get(0);
     }
 
     public void dispose(){

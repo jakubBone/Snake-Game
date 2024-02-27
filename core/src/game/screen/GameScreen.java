@@ -37,7 +37,7 @@ public class GameScreen extends ScreenSetter {
         setBasicScreenDetails();
 
         snake = new Snake(new Texture("snakeHead.png"), new Texture("snakeBody.png"));
-        apple = new Apple(new Texture("apple.png"));
+        apple = new Apple(new Texture("apple.png"), snake.bodyParts);
         tryAgainImage = new Texture("tryAgainImage.png");
 
         hitSound = Gdx.audio.newSound(Gdx.files.internal("hitSound.wav"));
@@ -77,7 +77,7 @@ public class GameScreen extends ScreenSetter {
                 Snake.attempts = 4;
                 game.setScreen(new GameOverScreen(game));
             }
-            batch.draw(tryAgainImage, 0 , 0 );
+            batch.draw(tryAgainImage, 0, 0, 768, 768);
             tryAgainButton.render(batch);
             exitButton.render(batch);
             controlMouseCursorTouch();
