@@ -1,4 +1,4 @@
-package model;
+package game.model;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
@@ -94,7 +94,7 @@ public class Snake {
         increaseVelocity();
     }
 
-    public void checkCollision(Apple apple, Sound gulp, Sound hitSound) {
+    public void checkCollision(Apple apple, Sound gulp) {
         Vector2 headPos = bodyParts.get(0);
 
         // Apple collision checking
@@ -103,18 +103,14 @@ public class Snake {
             grow();
             apple.respawn();
         }
-
         // Snake body collision checking
         for(int i = 2; i < bodyParts.size(); i++){
                 if(headPos.equals(bodyParts.get(i ))) {
-                    ifCollisionDetected = true;
                     resetVelocity();
                 }
         }
-
         // Wall collision checking
         if(headPos.x < 0 || headPos.x >= 768 || headPos.y < 0 || headPos.y >= 704) {
-            ifCollisionDetected = true;
             resetVelocity();
         }
     }
@@ -124,10 +120,10 @@ public class Snake {
         if (movementIntervalTimeNano >= 100000000) {
             movementIntervalTimeNano -= 20000000;
             speed++;
-
         }
     }
     public void resetVelocity(){
+            ifCollisionDetected = true;
             movementIntervalTimeNano = 500000000;
             speed = 1;
     }

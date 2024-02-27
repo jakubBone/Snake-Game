@@ -1,7 +1,7 @@
-package screen;
+package game.screen;
 
-import button.ButtonClickListener;
-import button.MyButton;
+import game.button.ButtonClickListener;
+import game.button.MyButton;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -14,13 +14,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import model.Apple;
-import model.Snake;
+import game.model.Apple;
+import game.model.Snake;
 
 public class GameScreen implements Screen {
     private Music snakeMoveSound;
     private Sound snakeGulpSound;
-    private Sound hitSound;
     private ShapeRenderer shapeRenderer;
     private Texture tryAgainImage;
     private OrthographicCamera camera;
@@ -32,7 +31,6 @@ public class GameScreen implements Screen {
     private long lastMoveTime;
     private MyButton tryAgainButton;
     private MyButton exitButton;
-
     private Game game;
 
     public GameScreen(Game aGame) {
@@ -52,7 +50,6 @@ public class GameScreen implements Screen {
         apple = new Apple(new Texture("apple.png"));
         tryAgainImage = new Texture("tryAgainImage.png");
 
-        hitSound = Gdx.audio.newSound(Gdx.files.internal("hitSound.wav"));
         snakeGulpSound = Gdx.audio.newSound(Gdx.files.internal("snakeGulpSound.wav"));
         snakeMoveSound = Gdx.audio.newMusic(Gdx.files.internal("snakeMoveSound.mp3"));
         snakeMoveSound.play();
@@ -69,11 +66,6 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
@@ -86,7 +78,7 @@ public class GameScreen implements Screen {
         handleInput();
         snake.drawBody(batch);
         snake.drawHead(batch, direction);
-        snake.checkCollision(apple, snakeGulpSound, hitSound);
+        snake.checkCollision(apple, snakeGulpSound);
         apple.drawApple(batch);
 
         drawHeadUpZoneDetails();
@@ -108,59 +100,6 @@ public class GameScreen implements Screen {
         }
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    /*public void render() {
-        ScreenUtils.clear(0, 0, 0, 0);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-
-        drawHeadUpZoneLine();
-
-        batch.begin();
-        updateSnakeMovement();
-        handleInput();
-        snake.drawBody(batch);
-        snake.drawHead(batch, direction);
-        snake.checkCollision(apple, snakeGulpSound, hitSound);
-        apple.drawApple(batch);
-
-        drawHeadUpZoneDetails();
-
-        if (snake.ifCollisionDetected) {
-            snakeMoveSound.pause();
-            if(snake.attempts == 1){
-                Gdx.app.exit();
-            }
-            batch.draw(tryAgainImage, 0 , 0 );
-            tryAgainButton.render(batch);
-            exitButton.render(batch);
-            controlMouseCursorTouch();
-        }
-
-        if (batch.isDrawing()) {
-            batch.end();
-        }
-    }
-*/
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
     // Head-up zone with remaining attempts and snake's speed displayed
     private void drawHeadUpZoneDetails(){
         int iconWidth = snake.headTexture.getWidth();
@@ -176,10 +115,10 @@ public class GameScreen implements Screen {
 
     // Line separating the playing zone from the head-up zone
     private void drawHeadUpZoneLine(){
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.line(0, 704, Gdx.graphics.getWidth(), 704);
-            shapeRenderer.end();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.line(0, 704, Gdx.graphics.getWidth(), 704);
+        shapeRenderer.end();
     }
 
     private void handleInput() {
@@ -206,7 +145,6 @@ public class GameScreen implements Screen {
     // "TRY AGAIN" and "EXIT" buttons clicks handling
     public void handleGameButtons(){
         tryAgainButton.setClickListener(new ButtonClickListener() {
-
             @Override
             public void onClick() {
                 create(); // Restore the game
@@ -234,6 +172,31 @@ public class GameScreen implements Screen {
             tryAgainButton.checkClick(touchPos);
             exitButton.checkClick(touchPos);
         }
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     public void dispose() {

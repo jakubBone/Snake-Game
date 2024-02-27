@@ -1,5 +1,7 @@
-package screen;
+package game;
 import com.badlogic.gdx.Game;
+import game.screen.MenuScreen;
+
 public class SnakeGame extends Game {
 
     public void create () {
@@ -11,6 +13,7 @@ public class SnakeGame extends Game {
     }
 
     public void dispose () {
+        super.dispose();
 
     }
 }

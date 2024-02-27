@@ -1,7 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import screen.SnakeGame;
+import game.SnakeGame;
 
 public class DesktopLauncher {
 	public static void main(String[] arg) {
@@ -11,17 +11,6 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.useVsync(true);
 
-
-		//MenuScreen menuScreen = new MenuScreen();
-		//GameScreen gameScreen = new GameScreen();
-		//GameOverScreen gameOverScreen = new GameOverScreen();
-
-
-
-			//new Lwjgl3Application(new MenuScreen(), config);
-			//new Lwjgl3Application(new GameScreen(), config);
-			//new Lwjgl3Application(new GameOverScreen(), config);
 			new Lwjgl3Application(new SnakeGame(), config);
-
 	}
 }
