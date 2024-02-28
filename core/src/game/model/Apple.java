@@ -39,8 +39,8 @@ public class Apple {
         int applePosX, applePosY;
 
         do {
-            randomGridX = MathUtils.random(0, 768 - gridSize);
-            randomGridY = MathUtils.random(0, 768 - gridSize);
+            randomGridX = MathUtils.random(0, 700 - gridSize);
+            randomGridY = MathUtils.random(0, 700 - gridSize);
 
             // Round apple position to the nearest grid 64x64
             applePosX = Math.round(randomGridX / gridSize) * gridSize;
