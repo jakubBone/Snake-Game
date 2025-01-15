@@ -1,6 +1,6 @@
 # SnakeGame
 
-[![Watch the video](src/assests/menuImage.png)](https://www.youtube.com/watch?v=PkdEGEKiCYQ)
+[![Watch the video](assests/menuImage.png)](https://www.youtube.com/watch?v=PkdEGEKiCYQ)
 
 ## Welcome to the Snake Game!
 This is a classic snake game developed using LibGDX. Navigate the snake to eat apples, grow longer, and avoid collisions with walls and itself. 
